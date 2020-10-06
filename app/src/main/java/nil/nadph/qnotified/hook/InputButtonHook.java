@@ -110,7 +110,7 @@ public class InputButtonHook extends BaseDelayableHook {
                             layout.setTouchInterceptor(new TouchEventToLongClickAdapter() {
                                 @Override
                                 public boolean onTouch(View v, MotionEvent event) {
-                                    if (LicenseStatus.hasBlackFlags() || !CardMsgHook.get().isEnabled())
+                                    if (!CardMsgHook.get().isEnabled())
                                         return false;
                                     ViewGroup vg = (ViewGroup) v;
                                     if (event.getAction() == MotionEvent.ACTION_DOWN &&
@@ -124,7 +124,7 @@ public class InputButtonHook extends BaseDelayableHook {
                                 public boolean onLongClick(View v) {
                                     try {
                                         if (LicenseStatus.sDisableCommonHooks) return false;
-                                        if (LicenseStatus.hasBlackFlags() || !CardMsgHook.get().isEnabled())
+                                        if (!CardMsgHook.get().isEnabled())
                                             return false;
                                         ViewGroup vg = (ViewGroup) v;
                                         Context ctx = v.getContext();
@@ -150,7 +150,7 @@ public class InputButtonHook extends BaseDelayableHook {
                                 Context ctx = v.getContext();
                                 EditText input = aioRootView.findViewById(ctx.getResources().getIdentifier("input", "id", ctx.getPackageName()));
                                 String text = input.getText().toString();
-                                if (((TextView) v).length() == 0 || LicenseStatus.hasBlackFlags() || !CardMsgHook.get().isEnabled()) {
+                                if (((TextView) v).length() == 0 || !CardMsgHook.get().isEnabled()) {
                                     return false;
                                 } else if (text.contains("<?xml") || text.contains("{\"")) {
                                     new Thread(() -> {
@@ -188,7 +188,6 @@ public class InputButtonHook extends BaseDelayableHook {
                                         }
                                     }).start();
                                 } else {
-                                    if (LicenseStatus.hasBlackFlags()) return false;
                                     if (!ChatTailHook.get().isEnabled()) return false;
                                     if (!Utils.isNullOrEmpty(ChatTailHook.get().getTailCapacity())) {
                                         int battery = FakeBatteryHook.get().isEnabled() ? FakeBatteryHook.get().getFakeBatteryStatus() < 1 ? ChatTailActivity.getBattery() : FakeBatteryHook.get().getFakeBatteryCapacity() : ChatTailActivity.getBattery();
@@ -269,7 +268,7 @@ public class InputButtonHook extends BaseDelayableHook {
         @Override
         protected void afterHookedMethod(MethodHookParam param) throws Throwable {
             if (LicenseStatus.sDisableCommonHooks) return;
-            if (LicenseStatus.hasBlackFlags() || !CopyCardMsg.INSTANCE.isEnabled()) return;
+            if (!CopyCardMsg.INSTANCE.isEnabled()) return;
             Object arr = param.getResult();
             Class<?> clQQCustomMenuItem = arr.getClass().getComponentType();
             Object item_copy = CustomMenu.createItem(clQQCustomMenuItem, R_ID_COPY_CODE, "复制代码");
@@ -289,7 +288,7 @@ public class InputButtonHook extends BaseDelayableHook {
 
         @Override
         protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-            if (LicenseStatus.hasBlackFlags() || !CopyCardMsg.INSTANCE.isEnabled()) return;
+            if (!CopyCardMsg.INSTANCE.isEnabled()) return;
             int id = (int) param.args[0];
             Activity ctx = (Activity) param.args[1];
             Object chatMessage = param.args[2];
