@@ -1683,31 +1683,32 @@ public class Utils {
     }
 
     public static boolean isNiceUser() {
-        if ((LicenseStatus.getCurrentUserWhiteFlags() & UserFlagConst.WF_NICE_USER) != 0)
-            return true;
-        if ((LicenseStatus.getCurrentUserBlackFlags() & UserFlagConst.BF_HIDE_INFO) != 0)
-            return false;
-        try {
-            ConfigManager cfg = ConfigManager.getDefaultConfig();
-            if (cfg.getBooleanOrDefault(ConfigItems.cfg_nice_user, false)) {
-                return true;
-            }
-            if (doEvalNiceUser()) {
-                try {
-                    if (SyncUtils.isMainProcess()) {
-                        cfg.getAllConfig().put(ConfigItems.cfg_nice_user, true);
-                        cfg.save();
-                    }
-                } catch (Throwable e1) {
-                    log(e1);
-                }
-                return true;
-            }
-            return false;
-        } catch (Throwable e2) {
-            log(e2);
-            return true;
-        }
+	    return true;
+//         if ((UserFlagConst.WF_NICE_USER) != 0)
+//             return true;
+//         if ((UserFlagConst.BF_HIDE_INFO) != 0)
+//             return true;
+//         try {
+//             ConfigManager cfg = ConfigManager.getDefaultConfig();
+//             if (cfg.getBooleanOrDefault(ConfigItems.cfg_nice_user, false)) {
+//                 return true;
+//             }
+//             if (doEvalNiceUser()) {
+//                 try {
+//                     if (SyncUtils.isMainProcess()) {
+//                         cfg.getAllConfig().put(ConfigItems.cfg_nice_user, true);
+//                         cfg.save();
+//                     }
+//                 } catch (Throwable e1) {
+//                     log(e1);
+//                 }
+//                 return true;
+//             }
+//             return false;
+//         } catch (Throwable e2) {
+//             log(e2);
+//             return true;
+//         }
     }
 
     private static boolean doEvalNiceUser() {
