@@ -94,7 +94,7 @@ public class AlphaTestFuncActivity extends IphoneTitleBarActivityCompat {
 
         setContentBackgroundDrawable(ResUtils.skin_background);
         setTitle("请勿改动");
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+//         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         return true;
     }
 
